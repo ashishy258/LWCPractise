@@ -1,0 +1,49 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.repeat{
+    align-items: right;
+    display: inline;
+    margin: 0 0.5rem;
+    cursor: pointer;
+}
+.totalScore{
+    display: inline;
+    margin: 0 1rem;
+}
+.timer{
+    display: inline;
+    margin: 0 1rem;
+}
+.score-panel{
+    text-align: left;
+    padding-bottom: 1rem;
+}
+.eachCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.listElement{
+    height: 2rem;
+    width: 4rem;
+    justify-content: center;
+    background: red;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0px;
+}
+.listElement.show{
+    font-size: 20px;
+    cursor: default;
+    opacity: 0.5;
+}
+.contain{
+    background: aquamarine;
+    border-radius: 4px;
+}

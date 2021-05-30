@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#D11212</headerColor>
+        <logo>nebula</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Zero To Hero</label>
+    <navType>Standard</navType>
+    <tabs>Quiz_App</tabs>
+    <tabs>Memory_Game</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Zero_To_Hero_UtilityBar</utilityBar>
+</CustomApplication>
