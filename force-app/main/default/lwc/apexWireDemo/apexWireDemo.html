@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="Enhanced Data Table">
+        <div class="slds-var-p-around_medium">
+            <lightning-layout>
+                <lightning-layout-item size="2" padding="around-small">
+                    <lightning-combobox
+                        label="Select Type"
+                        value={selectedValue}
+                        placeholder="Select Type"
+                        options={options}
+                        onchange={handleTypeChange} >
+                    </lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="2" padding="around-small">
+                    <lightning-combobox
+                        label="Filter BY"
+                        value={filterBy}
+                        placeholder="Choose Filter"
+                        options={FilterOptions}
+                        onchange={handleFilterChange} >
+                    </lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="3" padding="around-small">
+                    <lightning-input
+                        name="enter-search"
+                        label="Search Text"
+                        value={inputValue}
+                        onkeyup={handleSearchChange}
+                        disabled={disableInputSearch}
+                        type="search" >
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="2" alignment-bump="left" padding="around-small">
+                    <lightning-combobox
+                        label="Sort BY"
+                        value={sortBy}
+                        placeholder="Choose Field"
+                        options={sortingOptions}
+                        onchange={handleSortChange} >
+                    </lightning-combobox>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <div class="slds-var-p-around_medium">
+            <lightning-datatable
+                    key-field="id"
+                    data={filteredData}
+                    columns={columns}>
+            </lightning-datatable>
+        </div>
+    </lightning-card>
+</template>
