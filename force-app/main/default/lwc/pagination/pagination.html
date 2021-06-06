@@ -1,0 +1,14 @@
+<template>
+    <lightning-layout horizontal-align="center" multiple-rows>
+        <lightning-layout-item size="12" padding="around-small" small-device-size="3" medium-device-size="6" large-device-size="3" >
+            <lightning-button disabled={disablePrev} variant="brand" label="Prev" icon-name="utility:chevronleft" onclick={previousHandler}></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" padding="around-small" small-device-size="3" medium-device-size="6" large-device-size="3">
+            Displaying {currentPage} of {totalPage} pages
+        </lightning-layout-item>
+        <lightning-layout-item alignment-bump="left" size="12" padding="around-small" small-device-size="3" medium-device-size="6" large-device-size="3">
+            <lightning-button disabled={disableNext} variant="brand" icon-position="right" label="Next" icon-name="utility:chevronright" onclick={nextHandler}></lightning-button>
+        </lightning-layout-item>
+        
+    </lightning-layout>
+</template>

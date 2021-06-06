@@ -1,0 +1,17 @@
+<template>
+    <div>
+        <img src={car.Picture_URL__c} alt="car image"/>
+        <div>
+            <p>{car.Name}</p>
+            
+            <p>MSRP:  <lightning-formatted-number value={car.MSRP__c} 
+                format-style="currency" currency-code="USD"
+                maximum-fraction-digits="0">
+                </lightning-formatted-number>
+            </p>
+            <p>{car.Category__c}</p>
+            <p>{car.Make__c}</p>
+        </div>
+    </div>
+    
+</template>

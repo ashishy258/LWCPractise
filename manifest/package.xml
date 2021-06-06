@@ -34,7 +34,11 @@
     </types>
     <types>
         <members>*</members>
-        <name>CustomMetadata</name>
+        <name>LightningMessageChannel</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>FlexiPage</name>
     </types>
     <version>51.0</version>
 </Package>
