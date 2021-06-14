@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title={name} icon-name="standard:sossession">
+        <template if:true={recordId} >
+            <img src={pictureURL} alt="car picture comes here"/>
+            <lightning-record-view-form record-id={recordId} object-api-name="Car__c" density="compact">
+                <div class="slds-var-p-around_medium">
+                    <p> Name:   <lightning-formatted-url value={recordHREF}
+                        label={name} target="_blank" ></lightning-formatted-url></p>
+                    
+                    <lightning-output-field field-name="MSRP__c"></lightning-output-field>
+                    <lightning-output-field field-name="Category__c"></lightning-output-field>
+                </div>
+            </lightning-record-view-form>
+        </template>
+        <template if:false={recordId}>
+            <img src={carLogo} alt="Logo Comes Here"/>
+        </template>
+    </lightning-card>
+</template>

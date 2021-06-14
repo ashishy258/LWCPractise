@@ -16,6 +16,7 @@ export default class CardFilter extends LightningElement {
     }
     categoryOptions = [];
     makeOptions = [];
+    timer;
 
     @wire(MessageContext)
     messageContext;
@@ -58,28 +59,22 @@ export default class CardFilter extends LightningElement {
 
     changeHandler(event){
         const {name, value} = event.target.dataset;
-        if (name === "categoryPicklist") {
             if (event.target.checked) {
-                this.filterKey = {...this.filterKey, "categoryCheckBox":[...this.filterKey.categoryCheckBox, event.target.dataset.value]};
+                this.filterKey[name] = [...this.filterKey[name], value];
             }
             else {
-                this.filterKey = {...this.filterKey, "categoryCheckBox":[...this.filterKey.categoryCheckBox.filter(item => {return item !== event.target.dataset.value})]};
+                this.filterKey[name] = [...this.filterKey[name].filter(item => {return item !== value})];
             }
-        }
-        else if (name === "makePicklist") {
-            if (event.target.checked) {
-                this.filterKey = {...this.filterKey, "makeCheckBox":[...this.filterKey.makeCheckBox, event.target.dataset.value]};
-            }
-            else {
-                this.filterKey = {...this.filterKey, "makeCheckBox":[...this.filterKey.makeCheckBox.filter(item => {return item !== event.target.dataset.value})]};
-            }
-        }
+        
         this.handleFilterChange(this.filterKey);
         console.log(this.filterKey);
     }
 
     handleFilterChange(data) {
-        const payload = { filters: data };
-        publish(this.messageContext, carFilterMessageChannel, payload);
+        window.clearInterval(this.timer);
+        this.timer = window.setInterval(() => {
+            const payload = { filters: data };
+            publish(this.messageContext, carFilterMessageChannel, payload);
+        }, 400);
     }
 }

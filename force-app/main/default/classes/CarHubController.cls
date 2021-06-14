@@ -6,6 +6,28 @@ public with sharing class CarHubController {
 
     }
 
+    @AuraEnabled
+    public static List<Car__c> getRelatedCars(String recordId, List<Map<String, String>> criteria){
+        List<Car__c> carsToReturn = new List<Car__c>();
+        String fromJS = criteria[0].get('value');
+        String fromkeyJS = criteria[0].get('fieldName');
+        system.debug('from apex: '+ fromJS+' '+ fromkeyJS);
+        if(criteria[0].get('fieldName') == 'Category__c'){
+            carsToReturn = [SELECT Id, Name, Category__c, Control__c, Make__c, MSRP__c, Picture_URL__c FROM Car__c WHERE Category__c = :fromJS AND Id != :recordId];
+            return carsToReturn;
+        }
+        else if(criteria[0].get('fieldName') == 'Make__c'){
+            carsToReturn = [SELECT Id, Name, Category__c, Control__c, Make__c, MSRP__c, Picture_URL__c FROM Car__c WHERE Make__c = :fromJS AND Id != :recordId];
+            return carsToReturn;
+        }
+        else if(criteria[0].get('fieldName') == 'Control__c'){
+            carsToReturn = [SELECT Id, Name, Category__c, Control__c, Make__c, MSRP__c, Picture_URL__c FROM Car__c WHERE Control__c = :fromJS AND Id != :recordId];
+            return carsToReturn;
+        }
+        return carsToReturn;
+        
+    }
+
     @AuraEnabled(cacheable=true)
     public static List<Car__C> getFilteredCars(FilterWRAPPER filterKey){
 

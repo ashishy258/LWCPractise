@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Related Cars">
+        <div class="slds-var-p-around_medium">
+            <template if:false={show} >
+                <lightning-button variant="destructive" label="Search Related Cars" onclick={handleSearch} class="slds-text-align_center"></lightning-button>
+            </template>
+            <template if:true={show}>
+                <lightning-combobox
+                    label="Search Type"
+                    value={selectedType}
+                    options={optionsType}
+                    onchange={handleTypeChange} >
+                </lightning-combobox>
+                <div class="slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none slds-box slds-p-around_none">
+                        <template for:each={finalData} for:item="car">
+                            <div class="custom-box" key={car.Id}>
+                                <lightning-layout>
+                                <lightning-layout-item>
+                                    <img src={car.Picture_URL__c} alt="car picture"/>
+                                </lightning-layout-item>
+                                <lightning-layout-item alignment-bump="left">
+                                    <p>{car.Name}</p>
+                                    <p>{car.MSRP__c}</p>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                            </div>
+                        </template>
+                </div>
+                
+                    
+                
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,7 +1,8 @@
 import { LightningElement, wire } from 'lwc';
 import getFilteredCars from '@salesforce/apex/CarHubController.getFilteredCars';
-import { subscribe, unsubscribe, MessageContext } from 'lightning/messageService';
+import { publish, subscribe, unsubscribe, MessageContext } from 'lightning/messageService';
 import carFilterMessageChannel from '@salesforce/messageChannel/carFilter__c';
+import sendRecordIdChannel from '@salesforce/messageChannel/sendRecordId__c';
 
 export default class CarList extends LightningElement {
 
@@ -50,6 +51,12 @@ export default class CarList extends LightningElement {
     unsubscribeToMessageChannel() {
         unsubscribe(this.subscription);
         this.subscription = null;
+    }
+
+    handleCarSelection(event){
+        const payload = { recordId: event.detail };
+        publish(this.messageContext, sendRecordIdChannel, payload);
+        console.log('recordId', event.detail);
     }
 
 }

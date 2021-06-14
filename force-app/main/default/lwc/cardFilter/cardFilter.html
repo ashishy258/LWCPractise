@@ -10,7 +10,7 @@
                     <h2>Category</h2>
                     <template for:each={categoryOptions} for:item="category">
                         <lightning-input key={category.value} type="checkbox" 
-                        label={category.label} checked data-name="categoryPicklist"
+                        label={category.label} checked data-name="categoryCheckBox"
                         data-value={category.value}
                         onchange={changeHandler}></lightning-input>
                     </template>
@@ -21,7 +21,7 @@
                     <h2>Maker</h2>
                     <template for:each={makeOptions} for:item="make">
                         <lightning-input key={make.value} type="checkbox" 
-                        label={make.label} checked data-name="makePicklist"
+                        label={make.label} checked data-name="makeCheckBox"
                         data-value={make.value}
                         onchange={changeHandler}></lightning-input>
                     </template>
