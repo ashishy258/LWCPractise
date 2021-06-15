@@ -10,7 +10,7 @@ public with sharing class LwcLookupController {
            String escapedObjectName = String.escapeSingleQuotes(objectName);
            String escapeColumn = String.escapeSingleQuotes(column);
            String escapeKeyFieldAPI = String.escapeSingleQuotes(keyFieldAPI);
-           String query = 'SELECT ' + escapeColumn + ',' + escapeKeyFieldAPI + ' FROM ' + escapedObjectName;  
+           String query = 'SELECT ' + escapeColumn + ', ' + escapeKeyFieldAPI + ' FROM ' + escapedObjectName;  
            String escapedSelectedRecordId;
            if(String.isNotBlank(selectedRecordId)){
                 escapedSelectedRecordId = String.escapeSingleQuotes(selectedRecordId);

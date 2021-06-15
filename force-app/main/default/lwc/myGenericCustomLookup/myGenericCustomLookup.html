@@ -1,0 +1,67 @@
+<template>
+    <lightning-card>
+        <div class="slds-var-p-around_medium slds-form-element">
+            <label class="slds-form-element__label" for="combobox-id-17">{lookupLabel}</label>
+
+            <template if:true={selectedRec}>
+                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                    <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon" title="Account">
+                        <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account"></lightning-icon>
+                    </span>
+                    <input type="text" class="slds-input slds-combobox__input slds-has-focus"
+                                    aria-activedescendant="option1" aria-autocomplete="list"
+                                    aria-controls="listbox-id-17" autocomplete="off" role="textbox"
+                                    value={selectedRec.Name} />
+                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" onclick={removeSelection} title="Remove selected option">
+                        <lightning-icon icon-name="utility:close" alternative-text="Close" title="Close" size="x-small"></lightning-icon>
+                    </button>
+                  </div>
+            </template>
+
+            <template if:false={selectedRec}>
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox_container">
+                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+                            aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                                role="none">
+                                <input type="text" class="slds-input slds-combobox__input slds-has-focus"
+                                    id="combobox-id-17" aria-activedescendant="option1" aria-autocomplete="list"
+                                    aria-controls="listbox-id-17" autocomplete="off" role="textbox" onfocus={inputFocus} onkeyup={handleInputChange} onchange={handleInputChange}
+                                    placeholder="Search..." />
+                                <span
+                                    class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                    <lightning-icon icon-name="utility:search" alternative-text="Search" title="Search" size="x-small"></lightning-icon>
+                                </span>
+                            </div>
+                            <div id="listbox-id-17"
+                                class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox">
+                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+
+                                    <template if:true={showData} for:each={filteredRecords} for:item="rec" >
+                                        <li key={rec.Id} data-key={rec.Id}  data-name={rec.Name} role="presentation" class="slds-listbox__item" onclick={handleSelect}>
+                                            <div id={rec.Id} data-key={rec.Id} data-name={rec.Name}
+                                                class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                                role="option">
+                                                <span class="slds-media__figure slds-listbox__option-icon">
+                                                    <span class="slds-icon_container slds-icon-standard-account">
+                                                        <lightning-icon icon-name="standard:account" alternative-text="Account" title="Account"></lightning-icon>
+                                                    </span>
+                                                </span>
+                                                <span class="slds-media__body">
+                                                    <span data-key={rec.Id} data-name={rec.Name} class="slds-listbox__option-text slds-listbox__option-text_entity">{rec.Name}</span>
+                                                    <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{customObjectApiName}</span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </template>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
