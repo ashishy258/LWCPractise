@@ -1,0 +1,26 @@
+<template>
+    <template if:false={isMultiSelect}>
+        <lightning-combobox
+            name="CustomPicklist"
+            label={fieldLabel}
+            value={selectedValue}
+            options={options}
+            required={isRequired}
+            class="inp"
+            onchange={selectionChangeHandler}>
+        </lightning-combobox>      
+    </template>
+    <template if:true={isMultiSelect}>
+        <lightning-dual-listbox 
+            name="CustomMultiSelectPicklist"
+            label={fieldLabel}
+            source-label="Available"
+            selected-label="Chosen"
+            value={selectedValuesMulti}
+            options={options}
+            required={isRequired}
+            class="inp"
+            onchange={selectionChangeHandler}>
+        </lightning-dual-listbox>      
+    </template>
+</template>
