@@ -27,7 +27,8 @@ export default class CustomPicklistLWC extends LightningElement {
                 }
                 //Picklist
                 else if(!this.isMultiSelect) {
-                    this.options = noneValue.concat(data.picklistValues);
+                    this.options = [{label: "--None--", value: ""}, ...data.picklistValues];
+                    // this.options = noneValue.concat(data.picklistValues);
                     this.selectedValue = data.defaultValue;
                     this.fieldLabel = data.fieldLabel;
                     this.error = undefined;
