@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Medals Timeline" icon-name="utility:chart">
+        <div class="slds-var-p-around_small slds-text-align_center">
+            <div class="slds-text-heading--medium">Medals Timeline</div>
+            <canvas class="lineChart" lwc:dom="manual" height="380" width="380"></canvas>
+            <div if:false={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                <lightning-spinner alternative-text="Loading" size="medium" variant="base"></lightning-spinner>
+            </div>
+        </div>
+    </lightning-card>
+</template>

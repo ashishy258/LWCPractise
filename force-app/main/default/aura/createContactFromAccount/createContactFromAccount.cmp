@@ -1,0 +1,29 @@
+<aura:component controller="AccountControllerAssignment" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+
+    <aura:attribute name="recordId" type="Id" />    
+    <aura:attribute name="RecInput" type="Contact" default="{'sobjectType':'Contact'}" />
+    <lightning:notificationsLibrary aura:id="notifLib" />
+    Account Id is {!v.recordId}
+    <div class="slds-box slds-theme_shade">
+        <div class="slds-align_absolute-centre" style="height:5rem">
+            <div class="slds-page-header">
+                <div class="slds-text-heading_large">
+                    <h1>Create Contact</h1>
+                </div>
+            </div>
+        </div>
+
+        <lightning:input aura:id="field" label="First Name" name="firstName" value="{!v.RecInput.FirstName}" />
+
+        <lightning:input aura:id="field" label="Last Name" name="lastName" value="{!v.RecInput.LastName}" />
+
+        <lightning:input aura:id="field" label="Phone" name="Phone" type="tel" value="{!v.RecInput.Phone}" />
+
+        <lightning:input aura:id="field" label="Email" name="Email" type="email" value="{!v.RecInput.Email}" />
+
+        <br /><br />
+
+        <lightning:button class="slds-button slds-button_neutral slds-button_stretch" label="Submit"
+            onclick="{!c.doSubmit}"></lightning:button>
+    </div>
+</aura:component>

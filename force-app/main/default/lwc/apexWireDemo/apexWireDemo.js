@@ -1,9 +1,12 @@
 import { LightningElement, wire, api } from 'lwc';
-import getAccountist from '@salesforce/apex/AccountController.getAccountist'
+import getAccountist from '@salesforce/apex/AccountController.getAccountist';
+import updateAccounts from '@salesforce/apex/AccountController.updateAccounts';
+import { getRecordNotifyChange } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { refreshApex } from '@salesforce/apex';
 
 const COLUMNS = [
-    { label: 'Id', fieldName: 'Id' },
-    { label: 'Account Name', fieldName: 'Name' },
+    { label: 'Account Name', fieldName: 'Name', editable: true },
     { label: 'Type', fieldName: 'Type'},
     { label: 'Industry', fieldName: 'Industry'},
     { label: 'URLId', fieldName: 'urlId', type: 'url',
@@ -29,6 +32,8 @@ export default class ApexWireDemo extends LightningElement {
     sortBy = 'Name';
     sortDirection = 'asc';
     sortingOptions = [];
+    draftValues = [];
+    @api recordId;
 
 
 
@@ -101,7 +106,7 @@ export default class ApexWireDemo extends LightningElement {
         }
         else {
             this.filteredData = this.wholeData;
-        } 
+        }
     }
 
     handleSortChange(event){
@@ -122,4 +127,42 @@ export default class ApexWireDemo extends LightningElement {
         return cloneData;
     }
 
+    async handleSave(event) {
+        const updatedFields = event.detail.draftValues;
+        console.log('updatedFields: ', updatedFields);
+        // Prepare the record IDs for getRecordNotifyChange()
+        const notifyChangeIds = updatedFields.map(row => { return { "recordId": row.Id } });
+
+        try {
+            // Pass edited fields to the updateContacts Apex controller
+            const result = await updateAccounts({data: updatedFields});
+            console.log(JSON.stringify("Apex update result: "+ result));
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Accounts updated',
+                    variant: 'success'
+                })
+            );
+
+            // Refresh LDS cache and wires
+            getRecordNotifyChange(notifyChangeIds);
+
+             // Clear all draft values in the datatable
+                this.draftValues = [];
+                
+            // Display fresh data in the datatable
+            await refreshApex(this.wiredAccounts);
+               
+        }
+        catch(error) {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error updating or refreshing records',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        };
+    }
 }

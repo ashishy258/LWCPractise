@@ -1,0 +1,85 @@
+<template>
+    <lightning-card title="WhatsApp">
+        <div class="slds-p-around_x-small">
+            <c-generic-custom-lookup-l-w-c object-api-name="Contact" lookup-label="Select Contact" onselectedname={handleNameSelect}
+                key-field-a-p-i="Phone" search-field="Name" onselected={handleContactSelection}>
+            </c-generic-custom-lookup-l-w-c>
+        </div>
+        <div class="slds-align_absolute-center">
+            <lightning-button variant="brand" label="Start" title="Primary action" onclick={handleClick}
+                class="slds-m-left_x-small slds-align_absolute-center"></lightning-button>
+        </div>
+        <template if:true={showModal}>
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+                class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" onclick={hideModal}
+                        title="Remove selected option">
+                        <span class="slds-button__icon" aria-hidden="true">
+                            <lightning-icon icon-name="utility:close" size="xx-Small"
+                                class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default" aria-hidden="true"></lightning-icon>
+                        </span>
+                        <span class="slds-assistive-text">Remove selected record</span>
+                    </button>
+                    
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <template if:true={isDataArrived}>
+                            <div class="slds-chat-bookend">
+                                <span class="slds-p-around_x-small">
+                                    <lightning-icon icon-name="action:user" size="x-small" aria-hidden="true"></lightning-icon>
+                                </span>
+                                <p><b>{contactName}</b></p>
+                            </div>
+                            <template for:each={chatData} for:item="chat">
+                                <template if:true={chat.Is_Inbound__c}>
+                                    <!--inbound message-->
+                                    <section key={chat.Id} role="log" class="slds-chat">
+                                        <ul class="slds-chat-list">
+                                            <li class="slds-chat-listitem slds-chat-listitem_inbound">
+                                                <div class="slds-chat-message">
+                                                    <div class="slds-chat-message__body">
+                                                        <div class="slds-chat-message__text slds-chat-message__text_inbound">
+                                                            <span>{chat.Message__c}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                    <!--inbound end-->
+                                </template>
+                                <template if:true={chat.Is_Outbound__c}>
+                                    <!--outbound start-->
+                                    <section key={chat.Id} role="log" class="slds-chat">
+                                        <ul class="slds-chat-list">
+                                            <li class="slds-chat-listitem slds-chat-listitem_outbound">
+                                                <div class="slds-chat-message">
+                                                    <div class="slds-chat-message__body">
+                                                        <div class="slds-chat-message__text slds-chat-message__text_outbound">
+                                                            <span>{chat.Message__c}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                    <!--outbound end-->
+                                </template>
+                            </template>
+                        </template>
+                        <template if:false={isDataArrived}>
+                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                        </template>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="text" value={textMessage} label="Enter some text" onchange={handleInputChange}></lightning-input>
+                        </div>
+                        <button class="slds-button slds-button_brand" onclick={handleSend}>Send</button>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+        </template>
+    </lightning-card>
+</template>

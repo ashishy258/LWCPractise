@@ -1,0 +1,47 @@
+<template>
+    <lightning-card title="Archive Historical Record">
+        <lightning-layout>
+            <lightning-layout-item alignment-bump="left" size="2" padding="around-small" class="slds-m-right_small">
+                <div>
+                    <lightning-button label="Add row" variant="brand" title="Non-primary action" onclick={handleAddRow} class="slds-m-left_x-small">
+                    </lightning-button>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <template for:each={objectFieldPill} for:item="row">
+            <div key={row.index} class="slds-var-p-around_medium slds-hint-parent">
+                <lightning-layout>
+                    <lightning-layout-item size="2" padding="around-small">
+                        <lightning-combobox label="Select Object" data-id={row.index} value={row.objectName} placeholder="Select Object"
+                            options={objectOptions} onchange={handleObjectChange}>
+                        </lightning-combobox>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="4" padding="around-small">
+                        <lightning-combobox label="Select Fields" data-id={row.index} value={inputSelectedFields} placeholder="Select Fields"
+                            options={row.fieldsName} disabled={row.isFieldDisabled} onchange={handleFieldSelect}>
+                        </lightning-combobox>
+                        <template if:true={row.showPills}>
+                            <lightning-pill-container items={row.pillsName} data-id={row.index} onitemremove={handleItemRemove}>
+                            </lightning-pill-container>
+                        </template>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="2" padding="around-small">
+                        <lightning-input type="date" name="input1" data-id={row.index} label="Fetch data till date" value={row.dataTillDate} onchange={handleDateChange}></lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="2" padding="around-small">
+                        <label class="slds-form-element__label" for="combobox-id-8">Select All Fields</label>
+                        <lightning-input type="checkbox" data-id={row.index} name="input1" checked={row.selectAllFields} onchange={handleCheckboxChange}></lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </template> 
+        <div class="slds-align_absolute-center">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small">
+                    <lightning-button icon-name="utility:save" variant="brand" label="Archive Data" title="Archive Data"
+                        onclick={handleSave}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </lightning-card>
+</template>

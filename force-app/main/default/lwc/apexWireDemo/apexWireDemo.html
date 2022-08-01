@@ -45,7 +45,10 @@
             <lightning-datatable
                     key-field="id"
                     data={filteredData}
-                    columns={columns}>
+                    columns={columns}
+                    hide-checkbox-column="true"
+                    onsave={handleSave}
+                    draft-values={draftValues}>
             </lightning-datatable>
         </div>
     </lightning-card>

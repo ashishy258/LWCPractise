@@ -76,6 +76,11 @@ export default class GenericCustomLookupLWC extends LightningElement {
       this.selectedRecordId = event.target.dataset.key;
       this.selectedValue = event.target.dataset.name;
       this.searchKey = "";
+      const selectedEvent = new CustomEvent('selected', { detail: this.selectedRecordId});
+      this.dispatchEvent(selectedEvent);
+
+      const selectedName = new CustomEvent('selectedname', { detail: this.selectedValue});
+      this.dispatchEvent(selectedName);
   }
 
   handleKeyChange(event) {
